@@ -28,8 +28,6 @@ class CoursController extends Controller
             $cours->intitule = $validated['intitule'];
             $cours->ponderation = $validated['ponderation'];
             $cours->save();
-            dd($cours->save());
-            // $cours = Cours::create($request->all());
             if ($cours) {
                 return response()->json(['message' => 'Le cours a ete cree avec succes'], 201);
             }

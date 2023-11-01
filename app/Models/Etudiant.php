@@ -19,4 +19,8 @@ class Etudiant extends Model
         'password',
     ];
 
+    public function cours(){
+        return $this->hasOne(Cours::class);
+    }
+
 }

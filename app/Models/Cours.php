@@ -15,4 +15,7 @@ class Cours extends Model
         public function professeur() {
             return $this->belongsTo(Professeur::class);
          }
+         public function notes(){
+            return $this->hasOne(Note::class);
+        }
 }
