@@ -18,6 +18,7 @@ class CoursResource extends JsonResource
             "id"=>$this->id,
             "intitule"=>$this->intitule,
             "ponderation"=>$this->ponderation,
+            "professeur"=>$this->professeur,
         ];
             
     }

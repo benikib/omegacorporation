@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("intitule");
             $table->integer("ponderation");
+            $table->foreignId('professeur_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

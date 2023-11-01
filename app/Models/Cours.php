@@ -8,13 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Cours extends Model
 {
     use HasFactory;
-    protected $table = 'cours';
     protected $fillable = [
         'intitule',
         'ponderation'];
 
-        // public function users()
-        // {
-        //     return $this->belongsToMany(User::class)->withPivot('id');
-        // }
+        public function professeur() {
+            return $this->belongsTo(Professeur::class);
+         }
 }

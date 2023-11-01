@@ -19,7 +19,6 @@ class ProfesseurResource extends JsonResource
             'nom'=>$this->nom,
             'post_nom'=>$this->post_nom,
             'prenom'=>$this->prenom,
-            'promotion'=>$this->promotion,
         ];
     }
 }
