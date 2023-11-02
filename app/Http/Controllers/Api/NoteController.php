@@ -51,6 +51,13 @@ class NoteController extends Controller
     /**
      * Display the specified resource.
      */
+    
+    //Cette methode retourne toutes les notes d'un etudiant
+     public function getAllNoteforStudent($id){
+        $note=Note::where('etudiant_id',$id)->get();
+        return NoteResource::collection($note);
+     }
+     
     public function show($id)
     {
         $note = Note::find($id);

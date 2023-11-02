@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Cours;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\NoteResource;
 use App\Http\Resources\CoursResource;
 
 class CoursController extends Controller
@@ -17,6 +18,13 @@ class CoursController extends Controller
         $cours = Cours::all();
         return CoursResource::collection($cours);
     }
+
+     //Cette methode retourne tous les cours attribuer à un professeur
+    public function getAllCoursesAsOfProfessor($id){
+        $cours=Cours::where('professeur_id',$id)->get();
+        return CoursResource::collection($cours);
+     }
+
     public function store(Request $request)
     {
         try {

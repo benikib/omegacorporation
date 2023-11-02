@@ -23,8 +23,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-// routes
+#global routes
+#TO DO: only user connected have to get a permission
 Route::apiResource('cours',CoursController::class);
 Route::apiResource('etudiant',EtudiantController::class);
 Route::apiResource('professeur',ProfesseurController::class);
 Route::apiResource('note',NoteController::class);
+
+#search data route
+#TO DO: only user connected have to get a permission
+Route::get('note/getAllNoteforStudent/{id}',[NoteController::class,'getAllNoteforStudent']);
+Route::get('cours/getAllCoursesAsOfProfessor/{id}',[CoursController::class,'getAllCoursesAsOfProfessor']);
