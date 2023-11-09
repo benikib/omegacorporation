@@ -8,19 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Professeur extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'nom',
-        'post_nom',
-        'prenom',
-        'adresse',
-        'telephone',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     public function cours()
     {
-        return $this->hasOne(Cours::class);
+        return $this->hasMany(Cours::class);
+    }
+    public function users()
+    {
+        return $this->hasOne(User::class);
     }
 
 }

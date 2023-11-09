@@ -13,16 +13,8 @@ return new class extends Migration
     {
         Schema::create('etudiants', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->string('post_nom')->nullable(true);
-            $table->string('prenom');
-            $table->string('adresse');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('promotion');
-            $table->string('telephone')->unique();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
         });
     }

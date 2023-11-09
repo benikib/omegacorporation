@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use App\Models\Professeur;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,8 +13,9 @@ class ProfesseurController extends Controller
 {
     public function index()
     {
-        $Professeurs = Professeur::all();
-        return ProfesseurResource::collection($Professeurs);
+        $professeurs = Professeur::find(1)->users();
+        dd($professeurs);
+        return ProfesseurResource::collection($professeurs);
     }
     public function store(Request $request)
     {
@@ -23,22 +25,26 @@ class ProfesseurController extends Controller
                 'post_nom' => 'max:255',
                 'prenom' => 'required|max:255',
                 'adresse' => 'required|max:255',
-                'promotion' => 'max:255',
-                'telephone' => 'required|unique:Professeurs|max:20',
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:Professeurs'],
+                'telephone' => 'required|max:20',
+                'email' => ['required', 'string', 'email', 'max:255'],
                 'password' => ['required', 'string', 'min:8'],
             ]);
-            $Professeur = new Professeur;
-            $Professeur->nom = $validated['nom'];
-            $Professeur->post_nom = $validated['post_nom'];
-            $Professeur->prenom = $validated['prenom'];
-            $Professeur->telephone = $validated['telephone'];
-            $Professeur->adresse = $validated['adresse'];
-            $Professeur->email = $validated['email'];
-            $Professeur->password = Hash::make($validated['password']);
-            $Professeur->save();
-            if ($Professeur) {
-                return response()->json(['message' => 'Professeur a ete cree avec succes'], 201);
+            $user= new User;
+            $user->nom = $validated['nom'];
+            $user->post_nom = $validated['post_nom'];
+            $user->prenom = $validated['prenom'];
+            $user->telephone = $validated['telephone'];
+            $user->adresse = $validated['adresse'];
+            $user->email = $validated['email'];
+            $user->password = Hash::make($validated['password']);
+            $user->save();
+
+            $professeur=Professeur::create([
+                'user_id'=>$user->id,
+            ]);
+
+            if ($user && $professeur) {
+                return response()->json(['message' => 'Professeur a ete cree avec succes '], 201);
             }
 
         } catch (\Throwable $th) {

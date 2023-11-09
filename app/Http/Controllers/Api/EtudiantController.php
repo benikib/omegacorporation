@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Professeur;
+use App\Models\User;
 use App\Models\Etudiant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -31,17 +33,22 @@ class EtudiantController extends Controller
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:etudiants'],
                 'password' => ['required', 'string', 'min:8'],
             ]);
-            $etudiant = new Etudiant;
-            $etudiant->nom = $validated['nom'];
-            $etudiant->post_nom = $validated['post_nom'];
-            $etudiant->prenom = $validated['prenom'];
-            $etudiant->telephone = $validated['telephone'];
-            $etudiant->adresse = $validated['adresse'];
-            $etudiant->promotion = $validated['promotion'];
-            $etudiant->email = $validated['email'];
-            $etudiant->password = Hash::make($validated['password']);
-            $etudiant->save();
-            if ($etudiant) {
+            $user= new User;
+            $user->nom = $validated['nom'];
+            $user->post_nom = $validated['post_nom'];
+            $user->prenom = $validated['prenom'];
+            $user->telephone = $validated['telephone'];
+            $user->promotion = $validated['promotion'];
+            $user->adresse = $validated['adresse'];
+            $user->email = $validated['email'];
+            $user->password = Hash::make($validated['password']);
+            $user->save();
+
+            $professeur=Professeur::create([
+                'user_id'=>$user->id,
+                'promotion'=>$user->promotion
+            ]);
+            if ($user && $professeur) {
                 return response()->json(['message' => 'Etudiant a ete cree avec succes'], 201);
             }
 

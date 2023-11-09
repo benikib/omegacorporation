@@ -13,14 +13,7 @@ return new class extends Migration
     {
         Schema::create('professeurs', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->string('post_nom')->nullable(true);
-            $table->string('prenom');
-            $table->string('adresse');
-            $table->string('telephone')->unique();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });
