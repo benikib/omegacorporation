@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,11 +15,10 @@ class ProfesseurResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $user=User::find($this->user_id);
         return  [
             'id'=>$request->id,
-            'nom'=>$this->nom,
-            'post_nom'=>$this->post_nom,
-            'prenom'=>$this->prenom,
+            'user'=> new UserResource($user)
         ];
     }
 }
