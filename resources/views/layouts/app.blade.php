@@ -1,5 +1,5 @@
 <x-laravel-ui-adminlte::adminlte-layout>
-
+    @yield('style')
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
             <!-- Main Header -->
@@ -62,5 +62,6 @@
                 reserved.
             </footer>
         </div>
+        @yield('scripts')
     </body>
 </x-laravel-ui-adminlte::adminlte-layout>
