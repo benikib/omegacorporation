@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\auth\LoginController;
 use App\Http\Controllers\Api\CoursController;
 use App\Http\Controllers\Api\EtudiantController;
 use App\Http\Controllers\Api\NoteController;
@@ -30,7 +31,19 @@ Route::apiResource('etudiant',EtudiantController::class);
 Route::apiResource('professeur',ProfesseurController::class);
 Route::apiResource('note',NoteController::class);
 
-#search data route
+#search data routes
 #TO DO: only user connected have to get a permission
 Route::get('note/getAllNoteforStudent/{id}',[NoteController::class,'getAllNoteforStudent']);
 Route::get('cours/getAllCoursesAsOfProfessor/{id}',[CoursController::class,'getAllCoursesAsOfProfessor']);
+
+
+#connection routes
+#login method have to return user infor,ation, status code and token_
+Route::post('auth/professor/login',[LoginController::class,'professor_login']);
+Route::post('auth/student/login',[LoginController::class,'student_login']);
+
+
+#deconnection route
+Route::post('auth/user/logout/{id}',[LoginController::class,'logout']);
+
+
