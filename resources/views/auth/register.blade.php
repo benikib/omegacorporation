@@ -14,13 +14,52 @@
                         @csrf
 
                         <div class="input-group mb-3">
-                            <input type="text" name="name"
-                                class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"
-                                placeholder="Full name">
+                            <input type="text" name="nom"
+                                class="form-control @error('nom') is-invalid @enderror" value="{{ old('nom') }}"
+                                placeholder="nom">
                             <div class="input-group-append">
                                 <div class="input-group-text"><span class="fas fa-user"></span></div>
                             </div>
-                            @error('name')
+                            @error('nom')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" name="prenom"
+                                class="form-control @error('prenom') is-invalid @enderror" value="{{ old('prenom') }}"
+                                placeholder="prenom">
+                            <div class="input-group-append">
+                                <div class="input-group-text"><span class="fas fa-user"></span></div>
+                            </div>
+                            @error('prenom')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" name="telephone"
+                                class="form-control @error('telephone') is-invalid @enderror" value="{{ old('telephone') }}"
+                                placeholder="telephone">
+                            <div class="input-group-append">
+                                <div class="input-group-text"><span class="fas fa-user"></span></div>
+                            </div>
+                            @error('telephone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" name="adresse"
+                                class="form-control @error('adresse') is-invalid @enderror" value="{{ old('adresse') }}"
+                                placeholder="adresse">
+                            <div class="input-group-append">
+                                <div class="input-group-text"><span class="fas fa-user"></span></div>
+                            </div>
+                            @error('adresse')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
