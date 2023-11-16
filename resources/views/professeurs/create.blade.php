@@ -12,26 +12,41 @@
         <form class="form-horizontal" action="{{route('create_professor')}}" method="POST">
             @csrf
             <div class="card-body">
-                <div class="col-xm-6">
-                    <div class="form-group">
-                        <label for="name">Nom </label>
-                        <input type="text" name="name" class="form-control" placeholder="Nom du professeur" required>
+                <div class="row w-full">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="name">Nom </label>
+                            <input type="text" name="name" class="form-control" placeholder="Nom du professeur" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Post-Nom </label>
+                            <input type="text" name="name" class="form-control" placeholder="pst-nom du professeur" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">prenom </label>
+                            <input type="text" name="name" class="form-control" placeholder="prenom du professeur" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="name">Post-Nom </label>
-                        <input type="text" name="name" class="form-control" placeholder="pst-nom du professeur" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="name">prenom </label>
-                        <input type="text" name="name" class="form-control" placeholder="prenom du professeur" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Cours </label>
-                        <select class="form-control form-control" id="select-multiple" name="jalons[]" multiple>
-                            @foreach ($cours as $cours)
-                                <option value="{{$cours->id}}"> {{ $cours->intitule }} </option>
-                            @endforeach
-                        </select>
+
+
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="name">Téléphone </label>
+                            <input type="number" name="name" class="form-control" placeholder="prenom du professeur" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">email </label>
+                            <input type="email" name="name" class="form-control" placeholder="prenom du professeur" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Cours </label>
+                            <select class="form-control form-control" id="select-multiple" name="jalons[]" multiple>
+                                @foreach ($cours as $cours)
+                                    <option value="{{$cours->id}}"> {{ $cours->intitule }} </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>

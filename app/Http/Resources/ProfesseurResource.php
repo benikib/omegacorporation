@@ -17,7 +17,7 @@ class ProfesseurResource extends JsonResource
     {
         $user=User::find($this->user_id);
         return  [
-            'id'=>$request->id,
+            'id'=>$this->id,
             'user'=> new UserResource($user)
         ];
     }

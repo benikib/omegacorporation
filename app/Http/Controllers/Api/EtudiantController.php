@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Professeur;
 use App\Models\User;
 use App\Models\Etudiant;
+use App\Models\Professeur;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\EtudiantResource;
 
@@ -92,6 +93,7 @@ class EtudiantController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $error="";
         try {
             $validated_user = $request->validate([
                 'nom' => 'max:255',
@@ -106,6 +108,7 @@ class EtudiantController extends Controller
             $validated_etd=$request->validate([
                 'promotion' => 'max:255'
             ]);
+            
             $user = User::find($etudiant->user_id);
             $user->update([
                 'nom'=>$validated_user['nom'] ?? $user->nom,
@@ -116,12 +119,38 @@ class EtudiantController extends Controller
             $user->save();
             // $cours->save();
 
+
+            if ($request->hasFile('picture')) {
+                $file = $request->file('profile');
+                $allowed = ['png', 'jpg', 'jpeg', 'PNG', 'JPG', 'JPEG'];
+                $extension = $file->extension();
+    
+                if (($file->getSize() / 1000000) <= 5) {
+                    if (in_array($extension, $allowed)) {
+                        $fileName = date('ymdhis').'.'.$extension;
+                        if ($user->profile_photo != null) {
+                            if (File::exists('storage/profiles/'.$user->profile_photo)) {
+                                File::delete('storage/profiles/'.$user->profile_photo);
+                            }
+                        }
+    
+                        $user->profile_photo = $fileName;
+                        $user->save();
+                        $file->storeAs('profiles', $fileName, 'public');
+                    } else {
+                        $error='Le format du fichier est incorrect, seuls png,jpg,jpeg sont acceptés!!';
+                    }
+                } else {
+                    $error='Le fichier est trop volumineux';
+                }
+            }
+
             $etudiant->update([
                 'promotion' => $validated_etd['promotion']
             ]);
             
             if ($user && $etudiant) {
-                return response()->json(['message' => 'Etudiant a ete modifie avec succes', 'status_code'=>201], 201);
+                return response()->json(['message' => 'Etudiant a ete modifie avec succes', 'status_code'=>201,'erreur'=>error], 201);
             }
 
         } catch (\Throwable $th) {

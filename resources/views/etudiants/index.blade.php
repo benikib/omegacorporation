@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('title')
-    Professeur
+    Etudiant
 @endsection
 
 @section('filsAriane')
-    <li class="breadcrumb-item active">Professeur</li>
+    <li class="breadcrumb-item active">Etudiant</li>
 @endsection
 @section('content')
     <section class="content card card-primary card-outline p-4">
@@ -25,8 +25,9 @@
                     <tr>
                         <th style="width: 1%">#</th>
                         <th style="width: 20%">Nom</th>
-                        <th style="width: 30%">Nombre de cours</th>
-                        <th style="width: 8%" class="text-center">Statut</th>
+                        <th style="width: 12%">promotion</th>
+                        <th style="width: 12%">Cours Assisté</th>
+                        <th style="width: 12%" class="text-center">Statut</th>
                         <th style="width: 20%"></th>
                     </tr>
                 </thead>
@@ -38,8 +39,9 @@
                                 {{ $user->prenom }} {{ $user->nom }}
                             </td>
                             <td>
-                                {{ count($user->professeur->cours) ?? '0' }}
+                                {{ $user->etudiant->promotion ?? 'N/A' }}
                             </td>
+                            <td>{{ $user->etudiant->note->cote ?? 'N/A' }}</td>
                             <td class="item_progress">
 
                             </td>
@@ -62,7 +64,7 @@
             </table>
         </div>
         </div>
-        @include('professeurs.create')
+        @include('etudiants.create')
     </section>
 @endsection
 

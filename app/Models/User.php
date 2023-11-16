@@ -45,9 +45,9 @@ class User extends Authenticatable
         return $this->hasOne(User::class);
     }
     public function etudiant() {
-        return $this->belongsTo(Etudiant::class,'etudiant_id','user_id');
+        return $this->hasOne(Etudiant::class);
      }
     public function professeur() {
-        return $this->belongsTo(Professeur::class,'professeur_id','user_id');
+        return $this->hasOne(Professeur::class);
      }
 }

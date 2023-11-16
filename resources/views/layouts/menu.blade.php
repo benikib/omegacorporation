@@ -16,14 +16,14 @@
     <ul class="nav nav-treeview">
         <li class="nav-item">
             <a href="{{route('professeur')}}"
-                class="nav-link {{ Request::is('approbations.collaborateurs') ? 'active' : '' }}">
+                class="nav-link {{ Request::is('professeur') ? 'active' : '' }}">
                 <i class="nav-icon fa fa-users" aria-hidden="true"></i>
                 <p>Professeur</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="/"
-                class="nav-link {{ Request::is('pprobations.collaborateurs') ? 'active' : '' }}">
+            <a href="{{route('etudiant')}}"
+                class="nav-link {{ Request::is('etudiant') ? 'active' : '' }}">
                 <i class="nav-icon fa fa-tasks" aria-hidden="true"></i>
                 <p>Etudiant</p>
             </a>

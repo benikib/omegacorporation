@@ -13,8 +13,7 @@ class ProfesseurController extends Controller
 {
     public function index()
     {
-        $professeurs = Professeur::find(1)->users();
-        dd($professeurs);
+        $professeurs = Professeur::all();
         return ProfesseurResource::collection($professeurs);
     }
     public function store(Request $request)

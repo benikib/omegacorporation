@@ -1,5 +1,6 @@
 <x-laravel-ui-adminlte::adminlte-layout>
     @yield('style')
+
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
             <!-- Main Header -->
@@ -50,6 +51,9 @@
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
+                @if (!(Route::currentRouteName() == 'home' || Route::currentRouteName() == 'login'))
+                    @include('layouts.breadcrumb')
+                @endif
                 @yield('content')
             </div>
 
