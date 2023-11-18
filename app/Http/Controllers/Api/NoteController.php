@@ -24,8 +24,8 @@ class NoteController extends Controller
             ]);
             $note = new Note;
             $note->cote = $validated['cote'];
-            $note->cours = $validated['cours'];
-            $note->etudiant = $validated['etudiant'];
+            $note->cour_id = $validated['cours'];
+            $note->etudiant_id = $validated['etudiant'];
             $note->save();
             if ($note) {
                 return response()->json(['message' => 'Le Note a ete cree avec succes'], 201);
