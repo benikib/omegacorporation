@@ -26,8 +26,6 @@
                         <th style="width: 1%">#</th>
                         <th style="width: 20%">Nom</th>
                         <th style="width: 12%">promotion</th>
-                        <th style="width: 12%">Cours Assisté</th>
-                        <th style="width: 12%" class="text-center">Statut</th>
                         <th style="width: 20%"></th>
                     </tr>
                 </thead>
@@ -40,10 +38,6 @@
                             </td>
                             <td>
                                 {{ $user->etudiant->promotion ?? 'N/A' }}
-                            </td>
-                            <td>{{ $user->etudiant->note->cote ?? 'N/A' }}</td>
-                            <td class="item_progress">
-
                             </td>
                             <td class="item-actions text-right">
                                 <a class="btn btn-light btn-sm" href="/" title="voir"><i class="fas fa-eye"></i></a>

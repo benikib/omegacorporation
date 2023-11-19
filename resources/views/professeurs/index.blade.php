@@ -26,7 +26,6 @@
                         <th style="width: 1%">#</th>
                         <th style="width: 20%">Nom</th>
                         <th style="width: 30%">Nombre de cours</th>
-                        <th style="width: 8%" class="text-center">Statut</th>
                         <th style="width: 20%"></th>
                     </tr>
                 </thead>
@@ -39,9 +38,6 @@
                             </td>
                             <td>
                                 {{ count($user->professeur->cours) ?? '0' }}
-                            </td>
-                            <td class="item_progress">
-
                             </td>
                             <td class="item-actions text-right">
                                 <a class="btn btn-light btn-sm" href="/" title="voir"><i class="fas fa-eye"></i></a>
