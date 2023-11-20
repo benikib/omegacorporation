@@ -24,15 +24,15 @@
         <li class="nav-item">
             <a href="{{route('etudiant')}}"
                 class="nav-link {{ Request::is('etudiant') ? 'active' : '' }}">
-                <i class="nav-icon fa fa-tasks" aria-hidden="true"></i>
+                <i class="nav-icon fas fa-book-reader" aria-hidden="true"></i>
                 <p>Etudiant</p>
             </a>
         </li>
     </ul>
 </li>
 <li class="nav-item">
-    <a href="/" class="nav-link {{ Request::is(',') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
+    <a href="{{route('cours')}}" class="nav-link {{ Request::is('cours') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-book"></i>
         <p>Cours</p>
     </a>
 </li>

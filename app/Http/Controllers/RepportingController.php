@@ -119,4 +119,13 @@ class RepportingController extends Controller
         }
     }
 
+
+
+
+    public function cours(Request $request){
+        $cours=Cours::all();
+        $i=0;
+        return view('cours.index',compact('cours','i'));
+    }
+
 }
