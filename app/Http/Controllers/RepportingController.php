@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Etudiant;
 use App\Models\User;
 use App\Models\Cours;
+use App\Models\Etudiant;
 use App\Models\Professeur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class RepportingController extends Controller
 {
@@ -34,7 +36,6 @@ class RepportingController extends Controller
                 'adresse' => 'max:255',
                 'telephone' => 'required|max:20',
                 'email' => ['required', 'string', 'email', 'max:255'],
-                'password' => ['required', 'string', 'min:8'],
             ]);
             $user = new User;
             $user->nom = $validated['nom'];
@@ -49,7 +50,7 @@ class RepportingController extends Controller
             $professeur = Professeur::create([
                 'user_id' => $user->id,
             ]);
-            return redirect()->back() > with('success', 'creation avec success');
+            return redirect()->back()->with('success', 'creation avec success');
         } catch (\Throwable $th) {
             return response()->json(['message' => 'Une erreur s\' est produit lors de la creation de du professeur'], 500);
         }
@@ -124,8 +125,24 @@ class RepportingController extends Controller
 
     public function cours(Request $request){
         $cours=Cours::all();
+        $users = DB::table('users')
+        ->join('professeurs', 'users.id', '=', 'professeurs.user_id')
+        ->select('users.*')
+        ->get();
+        // dd($users);
         $i=0;
-        return view('cours.index',compact('cours','i'));
+        return view('cours.index',compact('cours','i','users'));
+    }
+
+    public function cours_store(Request $request){
+        $professeur=User::findOrFail($request->professeur)->professeur;
+        // dd($professeur->user_id);
+        Cours::create([
+            'intitule'=>$request->intitule,
+            'ponderation'=>$request->ponderation,
+            'professeur_id'=>$professeur->user_id
+        ]);
+        return redirect()->back();
     }
 
 }

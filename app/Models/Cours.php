@@ -10,7 +10,9 @@ class Cours extends Model
     use HasFactory;
     protected $fillable = [
         'intitule',
-        'ponderation'];
+        'ponderation',
+        'professeur_id'
+    ];
 
         public function professeur() {
             return $this->belongsTo(Professeur::class);

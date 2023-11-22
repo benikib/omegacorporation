@@ -14,11 +14,20 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="name">Intitulé</label>
-                    <input type="text" name="nom" class="form-control" placeholder="Nom du cours" required>
+                    <input type="text" name="intitule" class="form-control" placeholder="Nom du cours" required>
                 </div>
                 <div class="form-group">
                     <label for="name">Ponderation</label>
-                    <input type="number" name="post_nom" class="form-control" placeholder="ponderation" required>
+                    <input type="number" name="ponderation" class="form-control" placeholder="ponderation" required>
+                </div>
+                <div class="form-group">
+                    <select name="professeur" id="" class="form-control">
+                        <option value="" selected>null</option>
+                        @forelse ($users as $user)
+                            <option value="{{ $user->id }}">{{$user->nom}}</option>
+                        @empty
+                        @endforelse
+                    </select>
                 </div>
             </div>
             <div class="card-footer">
