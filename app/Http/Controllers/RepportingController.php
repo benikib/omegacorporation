@@ -2,31 +2,34 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\User;
-use App\Models\Cours;
-use App\Models\Etudiant;
-use App\Models\Professeur;
+use App\Models\Formation;
+use App\Models\Utilisateur;
+use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth ;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
+
 class RepportingController extends Controller
 {
-    function professeur(Request $request)
+    function admin(Request $request)
     {
-        $users = User::has('professeur')
-            ->with('professeur.cours')
+        $users = User::has('admin')
+            ->with('admin.formation')
             ->get();
-        // $professeurs=User::find(1)->with("professeurs");
+        // $admins=User::find(1)->with("admins");
         // die($users);
-        $cours = Cours::all();
+        $formations = Formation::all();
         $i = 1;
-        return view("professeurs.index", compact("users", "cours", "i"));
+        return view("admin.index", compact("users", "formations", "i"));
 
     }
 
 
-    function professeur_store(Request $request)
+    function admin_store(Request $request)
     {
         try {
             $validated = $request->validate([
@@ -47,12 +50,12 @@ class RepportingController extends Controller
             $user->password = Hash::make("password");
             $user->save();
 
-            $professeur = Professeur::create([
+            $admin = Admin::create([
                 'user_id' => $user->id,
             ]);
             return redirect()->back()->with('success', 'creation avec success');
         } catch (\Throwable $th) {
-            return response()->json(['message' => 'Une erreur s\' est produit lors de la creation de du professeur'], 500);
+            return response()->json(['message' => $th], 500);
         }
     }
 
@@ -61,22 +64,22 @@ class RepportingController extends Controller
 
 
 
-    function etudiant(Request $request)
+    function utilisateur(Request $request)
     {
-        $users = User::has('etudiant')
-            ->with('etudiant.note')
+        $users = User::has('utilisateur')
+            ->with('utilisateur.note')
             ->get();
-        // $professeurs=User::find(1)->with("professeurs");
+        // $admins=User::find(1)->with("admins");
         // die($users);
-        $cours = Cours::all();
+        $formations = Formation::all();
         $i = 1;
-        return view("etudiants.index", compact("users", "cours", "i"));
+        return view("utilisateurs.index", compact("users", "formations", "i"));
 
     }
 
 
 
-    function etudiant_store(Request $request){
+    function utilisateur_store(Request $request){
         // dd($request);
         try {
             // $validated = $request->validate([
@@ -110,9 +113,9 @@ class RepportingController extends Controller
                 'password'=>$request->password,
             ]);
 
-            $professeur = Etudiant::create([
+            $admin = Utilisateur::create([
                 'user_id' => $user->id,
-                'promotion' => $request->promotion,
+                
             ]);
             return redirect()->back() > with('success', 'creation avec success');
         } catch (\Throwable $th) {
@@ -123,26 +126,44 @@ class RepportingController extends Controller
 
 
 
-    public function cours(Request $request){
-        $cours=Cours::all();
+    public function formation(Request $request){
+        $formations=Formation::all();
         $users = DB::table('users')
-        ->join('professeurs', 'users.id', '=', 'professeurs.user_id')
+        ->join('admins', 'users.id', '=', 'admins.user_id')
         ->select('users.*')
         ->get();
         // dd($users);
         $i=0;
-        return view('cours.index',compact('cours','i','users'));
+        return view('formation.index',compact('formations','i','users'));
     }
 
-    public function cours_store(Request $request){
-        $professeur=User::findOrFail($request->professeur)->professeur;
-        // dd($professeur->user_id);
-        Cours::create([
-            'intitule'=>$request->intitule,
-            'ponderation'=>$request->ponderation,
-            'professeur_id'=>$professeur->user_id
+    public function formation_store(Request $request){
+        try {
+            $request->validate([
+                'titre' => 'required',
+                'description' => 'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',]);
+
+            $admin=Auth::user()->id; 
+            $image = $request->file('image');
+
+            // Enregistrer l'image dans le stockage
+            $imagePath = $image->store('public/images');
+    
+       // $admin = User::findOrFail($request->admin)->admin();
+       // $admin=User::findOrFail($request->admin)->admins;
+        // dd($admin->user_id);
+        Formation::create([
+            'title'=>$request->titre,
+            'description'=>$request->description,
+            'path'=>$imagePath,
+            'admin_id'=>$admin
         ]);
         return redirect()->back();
-    }
+    
+} catch (\Throwable $th) {
+    return response()->json(['message' => $th], 500);
+}
 
+}
 }

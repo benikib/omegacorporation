@@ -13,9 +13,9 @@ class Note extends Model
         "cote"
     ];
     public function etudiant(){
-        return $this->belongsTo(Etudiant::class);
+        return $this->belongsTo(Utilisateur::class);
     }
     public function cour(){
-        return $this->belongsTo(Cours::class);
+        return $this->belongsTo(Formation::class);
     }
 }

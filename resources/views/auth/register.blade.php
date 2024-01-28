@@ -1,19 +1,19 @@
 <x-laravel-ui-adminlte::adminlte-layout>
 
-    <body class="hold-transition register-page">
+    <body class="hold-transition register-page" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');" loading="lazy">
         <div class="register-box">
             <div class="register-logo">
-                <a href="{{ url('/home') }}"><b>{{ config('app.name') }}</b></a>
+                <a href="{{ url('/home') }}"><b>Omega Corporation</b></a>
             </div>
 
             <div class="card">
                 <div class="card-body register-card-body">
-                    <p class="login-box-msg">Register a new membership</p>
+                    <h2 class="login-box-msg primary">S'inscrire</h2>
 
                     <form method="post" action="{{ route('register') }}">
                         @csrf
 
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-2">
                             <input type="text" name="nom"
                                 class="form-control @error('nom') is-invalid @enderror" value="{{ old('nom') }}"
                                 placeholder="nom">
@@ -101,24 +101,26 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-8">
+
+                            <div class="col-12">
                                 <div class="icheck-primary">
                                     <input type="checkbox" id="agreeTerms" name="terms" value="agree">
                                     <label for="agreeTerms">
-                                        I agree to the <a href="#">terms</a>
+                                    J'accepte les <a href="#" target="_blank" >conditions générales</a>
                                     </label>
                                 </div>
                             </div>
                             <!-- /.col -->
-                            <div class="col-4">
-                                <button type="submit" class="btn btn-primary btn-block">Register</button>
+                            
+                                <button type="submit" class="btn btn-primary btn-block">S'inscrire</button>
                             </div>
                             <!-- /.col -->
                         </div>
                     </form>
-
-                    <a href="{{ route('login') }}" class="text-center">I already have a membership</a>
+                    
+                    <a href="{{ route('login') }}" class="text-center mb-3"> Vous avez déja un compte</a>
                 </div>
+                
                 <!-- /.form-box -->
             </div><!-- /.card -->
 

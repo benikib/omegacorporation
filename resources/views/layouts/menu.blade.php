@@ -15,24 +15,24 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="{{route('professeur')}}"
-                class="nav-link {{ Request::is('professeur') ? 'active' : '' }}">
+            <a href="{{route('admin')}}"
+                class="nav-link {{ Request::is('admin') ? 'active' : '' }}">
                 <i class="nav-icon fa fa-users" aria-hidden="true"></i>
-                <p>Professeur</p>
+                <p>Administrateurs</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{route('etudiant')}}"
-                class="nav-link {{ Request::is('etudiant') ? 'active' : '' }}">
+            <a href="{{route('utilisateur')}}"
+                class="nav-link {{ Request::is('utilisateur') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-book-reader" aria-hidden="true"></i>
-                <p>Etudiant</p>
+                <p>Utilisateur</p>
             </a>
         </li>
     </ul>
 </li>
 <li class="nav-item">
-    <a href="{{route('cours')}}" class="nav-link {{ Request::is('cours') ? 'active' : '' }}">
+    <a href="{{route('formation')}}" class="nav-link {{ Request::is('formation') ? 'active' : '' }}">
         <i class="nav-icon fas fa-book"></i>
-        <p>Cours</p>
+        <p>Formateurs</p>
     </a>
 </li>

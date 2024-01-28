@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,22 +13,27 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', function () {
-    return redirect()->route('home');
+    return view('welcome');
+});
+Route::get('/pages/contact', function () {
+    return view('pages/contact');
 });
 
+Route::group(['middleware' => 'auth'], function () {
+Route::get('/pages/actualite', [App\Http\Controllers\ArticleController::class, 'index'])->name('pages.actualite');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/professeur', [App\Http\Controllers\RepportingController::class, 'professeur'])->name('professeur');
-Route::post('/professeur/create', [App\Http\Controllers\RepportingController::class, 'professeur_store'])->name('create_professor');
+Route::get('/admin', [App\Http\Controllers\RepportingController::class, 'admin'])->name('admin');
+Route::post('/admin/create', [App\Http\Controllers\RepportingController::class, 'admin_store'])->name('create_admin');
 
 
 
-Route::get('/etudiant', [App\Http\Controllers\RepportingController::class, 'etudiant'])->name('etudiant');
-Route::post('/etudiant/create', [App\Http\Controllers\RepportingController::class, 'etudiant_store'])->name('etudiant_professor');
+Route::get('/utilisateur', [App\Http\Controllers\RepportingController::class, 'utilisateur'])->name('utilisateur');
+Route::post('/utilisateur/create', [App\Http\Controllers\RepportingController::class, 'utilisateur_store'])->name('utilisateur_admin');
 
 
-Route::get('/cours', [App\Http\Controllers\RepportingController::class, 'cours'])->name('cours');
-Route::post('/cours/create', [App\Http\Controllers\RepportingController::class, 'cours_store'])->name('cours_professor');
-
+Route::get('/formation', [App\Http\Controllers\RepportingController::class, 'formation'])->name('formation');
+Route::post('/formation/create', [App\Http\Controllers\RepportingController::class, 'formation_store'])->name('formation_admin');
+});
 Auth::routes();

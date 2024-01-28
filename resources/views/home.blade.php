@@ -7,8 +7,8 @@
                 <div class="small-box bg-secondary">
                     <div class="inner">
 
-                        <h3>{{$professeurs}}</h3>
-                        <p>Professeurs</p>
+                        <h3>{{$admins}}</h3>
+                        <p>Administrateurs</p>
                     </div>
                     <div class="icon">
                         <i class=""></i>
@@ -21,8 +21,8 @@
 
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>{{$etudiants}}<sup style="font-size: 20px"></sup></h3>
-                        <p>Etudiants</p>
+                        <h3>{{$utilisateurs}}<sup style="font-size: 20px"></sup></h3>
+                        <p>Utilisateurs</p>
                     </div>
                     <div class="icon">
                         <i class=""></i>
@@ -35,8 +35,8 @@
 
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>{{$cours}}</h3>
-                        <p>Cours</p>
+                        <h3>{{$formations}}</h3>
+                        <p>Formations</p>
                     </div>
                     <div class="icon">
                         <i class=""></i>
