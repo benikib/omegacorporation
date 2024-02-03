@@ -20,7 +20,7 @@ Route::get('/pages/contact', function () {
     return view('pages/contact');
 });
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'admin'], function () {
 Route::get('/pages/actualite', [App\Http\Controllers\ArticleController::class, 'index'])->name('pages.actualite');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -32,8 +32,16 @@ Route::post('/admin/create', [App\Http\Controllers\RepportingController::class, 
 Route::get('/utilisateur', [App\Http\Controllers\RepportingController::class, 'utilisateur'])->name('utilisateur');
 Route::post('/utilisateur/create', [App\Http\Controllers\RepportingController::class, 'utilisateur_store'])->name('utilisateur_admin');
 
+Route::get('/autre', [App\Http\Controllers\RepportingController::class, 'autre'])->name('autre');
+Route::post('/autre/create', [App\Http\Controllers\RepportingController::class, 'autre_store'])->name('autre_admin');
 
 Route::get('/formation', [App\Http\Controllers\RepportingController::class, 'formation'])->name('formation');
 Route::post('/formation/create', [App\Http\Controllers\RepportingController::class, 'formation_store'])->name('formation_admin');
 });
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/pages/actualite', [App\Http\Controllers\ArticleController::class, 'index'])->name('pages.actualite');
+    Route::get('/activites/jeux/{id}', [App\Http\Controllers\AutreController::class, 'show'])->name('activites.jeux');
+    
+
+    });
 Auth::routes();

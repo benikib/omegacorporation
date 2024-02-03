@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Formation;
+use App\Models\Autre;
 use App\Models\Utilisateur;
 use App\Models\Admin;
 use Illuminate\Http\Request;
@@ -125,7 +126,16 @@ class RepportingController extends Controller
 
 
 
-
+    public function autre(Request $request){
+        $autres=Autre::all();
+        $users = DB::table('users')
+        ->join('admins', 'users.id', '=', 'admins.user_id')
+        ->select('users.*')
+        ->get();
+        // dd($users);
+        $i=0;
+        return view('autres.index',compact('autres','i','users'));
+    }
     public function formation(Request $request){
         $formations=Formation::all();
         $users = DB::table('users')
@@ -166,4 +176,33 @@ class RepportingController extends Controller
 }
 
 }
+public function autre_store(Request $request){
+        
+    $request->validate([
+        'titre' => 'required',
+        'description' => 'required',
+        ]);
+
+        $admin=Auth::user()->id; 
+        
+        $file = $request->file('file');
+    
+        // Enregistrer l'image dans le stockage
+        $filePath = $file->storeAs('public/jeux', $file->getClientOriginalName());
+
+   
+   Autre::create([
+        'title'=>$request->titre,
+        'description'=>$request->description,
+        'type'=>$request->type,
+        'path'=>$filePath,
+        'admin_id'=>$admin
+    ]);
+   
+    
+    return redirect()->back();
+
 }
+
+}
+

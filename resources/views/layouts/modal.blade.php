@@ -1,9 +1,9 @@
 <div class="modal fade" @yield('id_modal')>
-    <div class="modal-dialog @yield('class-modal')">
+    <div class="modal-dialog @yield('class-modal') modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 @yield('modal-title')
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal1" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>

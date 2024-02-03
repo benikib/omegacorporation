@@ -36,3 +36,9 @@
         <p>Formateurs</p>
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{route('autre')}}" class="nav-link {{ Request::is('autres') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-book"></i>
+        <p>Autres</p>
+    </a>
+</li>
