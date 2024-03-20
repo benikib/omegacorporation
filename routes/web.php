@@ -34,13 +34,19 @@ Route::post('/utilisateur/create', [App\Http\Controllers\RepportingController::c
 
 Route::get('/autre', [App\Http\Controllers\RepportingController::class, 'autre'])->name('autre');
 Route::post('/autre/create', [App\Http\Controllers\RepportingController::class, 'autre_store'])->name('autre_admin');
+Route::get('/resultat', [App\Http\Controllers\RepportingController::class, 'resultat'])->name('resultat');
 
 Route::get('/formation', [App\Http\Controllers\RepportingController::class, 'formation'])->name('formation');
+
 Route::post('/formation/create', [App\Http\Controllers\RepportingController::class, 'formation_store'])->name('formation_admin');
+Route::get('/reservation', [App\Http\Controllers\RepportingController::class, 'reservation'])->name('reservation');
+
 });
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/pages/actualite', [App\Http\Controllers\ArticleController::class, 'index'])->name('pages.actualite');
     Route::get('/activites/jeux/{id}', [App\Http\Controllers\AutreController::class, 'show'])->name('activites.jeux');
+    Route::get('/reserver/{id}', [App\Http\Controllers\AutreController::class, 'reserver'])->name('reserver');
+    Route::post('/reserver', [App\Http\Controllers\AutreController::class, 'reserver_store'])->name('reserver.formation');
     
 
     });

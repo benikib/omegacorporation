@@ -45,6 +45,20 @@
 
                 </div>
             </div>
+            <div class="col-lg-4 col-6">
+
+<div class="small-box bg-primary">
+    <div class="inner">
+        <h3>{{$reservation}}</h3>
+        <p>Reservation</p>
+    </div>
+    <div class="icon">
+        <i class=""></i>
+    </div>
+    <a class="small-box-footer" href="/">voir plus <i class="fas fa-arrow-circle-right"></i></a>
+
+</div>
+</div>
 
 
         </div>

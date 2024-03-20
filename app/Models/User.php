@@ -40,9 +40,12 @@ class User extends Authenticatable
     ];
 
 
-    public function users()
+    public function resultats()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(Resultat::class);
+    }    public function reservation()
+    {
+        return $this->hasOne(Reserver::class);
     }
     public function utilisateur() {
         return $this->hasOne(Utilisateur::class);

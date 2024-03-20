@@ -8,6 +8,8 @@ use App\Models\Formation;
 use App\Models\Autre;
 use App\Models\Utilisateur;
 use App\Models\Admin;
+use App\Models\Reserver;
+use App\Models\Resultat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth ;
 use Illuminate\Support\Facades\DB;
@@ -77,7 +79,16 @@ class RepportingController extends Controller
         return view("utilisateurs.index", compact("users", "formations", "i"));
 
     }
+    function reservation(Request $request)
+    {
+        $reservations = User::has('reservation')->get();
+        // $admins=User::find(1)->with("admins");
+        // die($users);
+        $formations = Formation::all();
+        
+        return view("reservarion.index", compact("reservations"));
 
+    }
 
 
     function utilisateur_store(Request $request){
@@ -124,7 +135,15 @@ class RepportingController extends Controller
         }
     }
 
-
+    public function resultat(Request $request){
+        $jeu = Resultat::all();
+        $joueurs =User::has('resultats')->get();
+        // dd($users);
+        $i=0;
+        
+        
+        return view('autres.resultat',compact('i','joueurs'));
+    }
 
     public function autre(Request $request){
         $autres=Autre::all();

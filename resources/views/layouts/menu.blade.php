@@ -42,3 +42,9 @@
         <p>Autres</p>
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{route('reservation')}}" class="nav-link {{ Request::is('reservation') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-book"></i>
+        <p>Reservation</p>
+    </a>
+</li>

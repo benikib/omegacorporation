@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Formation;
 use App\Models\Utilisateur;
 use App\Models\Admin;
+use App\Models\Reserver;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -29,6 +30,8 @@ class HomeController extends Controller
         $admins=count(Admin::all());
         $formations=count(Formation::all());
         $utilisateurs=count(Utilisateur::all());
-        return view('home', compact('admins','utilisateurs','formations'));
+        $reservation=count(Reserver::all());
+        
+        return view('home', compact('admins','utilisateurs','formations','reservation'));
     }
 }

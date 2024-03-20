@@ -39,7 +39,7 @@
  
   <header class="bg-gradient-dark">
     <div class="page-header min-vh-75" style="background-image: url('../assets/img/bg9.jpg');">
-      <span class="mask bg-gradient-dark opacity-6"></span>
+      <span class="mask bg-gradient-info opacity-6"></span>
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center mx-auto my-auto">
@@ -135,7 +135,7 @@
     </section>
     <!-- END Section with four info areas left & one card right with image and waves -->
     <!-- -------- START Features w/ pattern background & stats & rocket -------- -->
-    <section class="pb-5 position-relative bg-gradient-dark mx-n3">
+    <section class="pb-5 position-relative bg-gradient-info mx-n3">
       <div class="container">
         <div class="row">
           <div class="col-md-8 text-start mb-5 mt-5">

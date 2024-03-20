@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\auth\LoginController;
 use App\Http\Controllers\Api\CoursController;
 use App\Http\Controllers\Api\EtudiantController;
 use App\Http\Controllers\Api\NoteController;
+use App\Http\Controllers\Api\ResultatController;
 use App\Http\Controllers\Api\ProfesseurController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,7 @@ Route::apiResource('cours',CoursController::class);
 Route::apiResource('etudiant',EtudiantController::class);
 Route::apiResource('professeur',ProfesseurController::class);
 Route::apiResource('note',NoteController::class);
+Route::apiResource('resultat',ResultatController::class);
 
 #search data routes
 #TO DO: only user connected have to get a permission
