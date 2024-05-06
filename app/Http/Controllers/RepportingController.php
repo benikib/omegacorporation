@@ -25,9 +25,9 @@ class RepportingController extends Controller
             ->get();
         // $admins=User::find(1)->with("admins");
         // die($users);
-        $formations = Formation::all();
+        $Users = User::all();
         $i = 1;
-        return view("admin.index", compact("users", "formations", "i"));
+        return view("admin.index", compact("users", "Users", "i"));
 
     }
 
@@ -36,25 +36,14 @@ class RepportingController extends Controller
     {
         try {
             $validated = $request->validate([
-                'nom' => 'required|max:255',
-                'post_nom' => 'max:255',
-                'prenom' => 'required|max:255',
-                'adresse' => 'max:255',
-                'telephone' => 'required|max:20',
-                'email' => ['required', 'string', 'email', 'max:255'],
+
+                'user_id' => 'required',
+
             ]);
-            $user = new User;
-            $user->nom = $validated['nom'];
-            $user->post_nom = $validated['post_nom'];
-            $user->prenom = $validated['prenom'];
-            $user->telephone = $validated['telephone'];
-            $user->adresse = $validated['adresse'];
-            $user->email = $validated['email'];
-            $user->password = Hash::make("password");
-            $user->save();
+
 
             $admin = Admin::create([
-                'user_id' => $user->id,
+                'user_id' => $validated['user_id'],
             ]);
             return redirect()->back()->with('success', 'creation avec success');
         } catch (\Throwable $th) {
@@ -85,7 +74,7 @@ class RepportingController extends Controller
         // $admins=User::find(1)->with("admins");
         // die($users);
         $formations = Formation::all();
-        
+
         return view("reservarion.index", compact("reservations"));
 
     }
@@ -104,7 +93,7 @@ class RepportingController extends Controller
             //     'email' => ['email', 'max:255'],
             //     'password' => ['min:20'],
             // ]);
-            
+
             // $user = new User;
             // $user->nom = $validated['nom'];
             // $user->post_nom = $validated['post_nom'];
@@ -127,7 +116,7 @@ class RepportingController extends Controller
 
             $admin = Utilisateur::create([
                 'user_id' => $user->id,
-                
+
             ]);
             return redirect()->back() > with('success', 'creation avec success');
         } catch (\Throwable $th) {
@@ -136,12 +125,18 @@ class RepportingController extends Controller
     }
 
     public function resultat(Request $request){
-        $jeu = Resultat::all();
-        $joueurs =User::has('resultats')->get();
-        // dd($users);
+        $jeu =$request;
+        $joueurs = Resultat::has('user')
+        ->with('resultatas.autre')
+        ->where('autre_id','=', $jeu)
+        ->get();
+
+
+
+
         $i=0;
-        
-        
+
+
         return view('autres.resultat',compact('i','joueurs'));
     }
 
@@ -173,12 +168,12 @@ class RepportingController extends Controller
                 'description' => 'required',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',]);
 
-            $admin=Auth::user()->id; 
+            $admin=Auth::user()->id;
             $image = $request->file('image');
 
             // Enregistrer l'image dans le stockage
             $imagePath = $image->store('public/images');
-    
+
        // $admin = User::findOrFail($request->admin)->admin();
        // $admin=User::findOrFail($request->admin)->admins;
         // dd($admin->user_id);
@@ -189,27 +184,27 @@ class RepportingController extends Controller
             'admin_id'=>$admin
         ]);
         return redirect()->back();
-    
+
 } catch (\Throwable $th) {
     return response()->json(['message' => $th], 500);
 }
 
 }
 public function autre_store(Request $request){
-        
+
     $request->validate([
         'titre' => 'required',
         'description' => 'required',
         ]);
 
-        $admin=Auth::user()->id; 
-        
+        $admin=Auth::user()->id;
+
         $file = $request->file('file');
-    
+
         // Enregistrer l'image dans le stockage
         $filePath = $file->storeAs('public/jeux', $file->getClientOriginalName());
 
-   
+
    Autre::create([
         'title'=>$request->titre,
         'description'=>$request->description,
@@ -217,8 +212,8 @@ public function autre_store(Request $request){
         'path'=>$filePath,
         'admin_id'=>$admin
     ]);
-   
-    
+
+
     return redirect()->back();
 
 }

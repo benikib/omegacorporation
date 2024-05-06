@@ -19,6 +19,9 @@ Route::get('/', function () {
 Route::get('/pages/contact', function () {
     return view('pages/contact');
 });
+Route::get('/pages/about', function () {
+    return view('pages/about');
+});
 
 Route::group(['middleware' => 'admin'], function () {
 Route::get('/pages/actualite', [App\Http\Controllers\ArticleController::class, 'index'])->name('pages.actualite');
@@ -34,7 +37,7 @@ Route::post('/utilisateur/create', [App\Http\Controllers\RepportingController::c
 
 Route::get('/autre', [App\Http\Controllers\RepportingController::class, 'autre'])->name('autre');
 Route::post('/autre/create', [App\Http\Controllers\RepportingController::class, 'autre_store'])->name('autre_admin');
-Route::get('/resultat', [App\Http\Controllers\RepportingController::class, 'resultat'])->name('resultat');
+Route::get('/resultat/{id}', [App\Http\Controllers\RepportingController::class, 'resultat'])->name('resultat');
 
 Route::get('/formation', [App\Http\Controllers\RepportingController::class, 'formation'])->name('formation');
 
@@ -47,7 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/activites/jeux/{id}', [App\Http\Controllers\AutreController::class, 'show'])->name('activites.jeux');
     Route::get('/reserver/{id}', [App\Http\Controllers\AutreController::class, 'reserver'])->name('reserver');
     Route::post('/reserver', [App\Http\Controllers\AutreController::class, 'reserver_store'])->name('reserver.formation');
-    
+
 
     });
 Auth::routes();

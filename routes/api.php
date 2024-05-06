@@ -49,3 +49,4 @@ Route::post('auth/student/login',[LoginController::class,'student_login']);
 Route::post('auth/user/logout/{id}',[LoginController::class,'logout']);
 
 
+
