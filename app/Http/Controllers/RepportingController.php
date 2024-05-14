@@ -124,11 +124,11 @@ class RepportingController extends Controller
         }
     }
 
-    public function resultat(Request $request){
+    public function resultat($request){
         $jeu =$request;
-        $joueurs = Resultat::has('user')
-        ->with('resultatas.autre')
-        ->where('autre_id','=', $jeu)
+        $joueurs = DB::table('users')
+        ->join('resultats', 'users.id', '=', 'resultats.user_id')
+        ->where('autre_id', $jeu)
         ->get();
 
 
