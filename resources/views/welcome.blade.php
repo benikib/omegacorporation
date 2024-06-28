@@ -87,7 +87,7 @@
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center mx-auto my-auto">
             <h1 class="text-white">Bienvenue chez Omega Corporation</h1>
-            <p class="lead mb-4 text-white opacity-8">Notre entreprise informatique
+            <p class="lead mb-4 text-white  h4 opacity-8">Notre entreprise informatique
               se spécialise dans la numérisation des entités telles que les écoles, les hôpitaux, etc. Nous aidons nos clients à transformer leurs opérations en développant des applications mobiles
               sur mesure, des logiciels de gestion et des sites web professionnels...</p>
 

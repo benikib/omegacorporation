@@ -8,17 +8,22 @@ use App\Models\Formation;
 use App\Models\Autre;
 use App\Models\Utilisateur;
 use App\Models\Admin;
+use App\Models\Quiz;
 use App\Models\Reserver;
 use App\Models\Resultat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth ;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NouvelAdministrateurMail;
+use GuzzleHttp\Psr7\Response;
 
 class RepportingController extends Controller
 {
-    function admin(Request $request)
+    public  $questionnaires =[];
+
+    public function admin(Request $request)
     {
         $users = User::has('admin')
             ->with('admin.formation')
@@ -45,6 +50,11 @@ class RepportingController extends Controller
             $admin = Admin::create([
                 'user_id' => $validated['user_id'],
             ]);
+            $admins = Admin::all();
+
+        foreach ($admins as $admin) {
+        Mail::to($admin->user->email)->send(new NouvelAdministrateurMail);
+}
             return redirect()->back()->with('success', 'creation avec success');
         } catch (\Throwable $th) {
             return response()->json(['message' => $th], 500);
@@ -75,7 +85,7 @@ class RepportingController extends Controller
         // die($users);
         $formations = Formation::all();
 
-        return view("reservarion.index", compact("reservations"));
+        return view("reservation.index", compact("reservations"));
 
     }
 
@@ -123,9 +133,26 @@ class RepportingController extends Controller
             return $th;
         }
     }
+    public function questionnaire($request){
+         $questionnaires = [] ;
+        $id_quiz =$request;
+        $questions = DB::table('quizzes')
+        ->where('id_quiz',$id_quiz)
+        ->get();
 
+foreach ($questions as $key => $question) {
+    $questionnaires [] = json_decode($question->question);
+}
+
+
+        $i=0;
+
+
+        return view('questionnaires.index',compact('i','questionnaires'));
+    }
     public function resultat($request){
         $jeu =$request;
+        
         $joueurs = DB::table('users')
         ->join('resultats', 'users.id', '=', 'resultats.user_id')
         ->where('autre_id', $jeu)
@@ -190,8 +217,76 @@ class RepportingController extends Controller
 }
 
 }
-public function autre_store(Request $request){
+public function questionnaires( Request $request){
+    try {
+        $request->validate([
+            'question' => 'required',
 
+        ]);
+        $questions  = array(
+            "question" => $request->question,
+            "typequestion" =>$request->typequestion,
+            "choose" => array($request->optionA,$request->optionB,$request->optionC,$request->optionD),
+            "correct" => $request->correctOption
+        );
+
+
+
+        $question = Quiz::create([
+            'id_quiz' => $request->id_quiz,
+            'question' => json_encode($questions)
+
+        ]);
+
+
+
+
+
+
+
+
+
+
+    return response()->json(['message' => $question], 202);
+
+} catch (\Throwable $th) {
+return response()->json(['message' => $th], 500);
+}
+}
+public function autre_store(Request $request){
+    try {
+        $request->validate([
+            'titre' => 'required',
+            'description' => 'required',
+            ]);
+
+            $admin=Auth::user()->id;
+
+
+
+            $autre = Autre::create([
+                'title' => $request->titre,
+                'description' => $request->description,
+                'type' => $request->type,
+                'path' => "filePath",
+                'admin_id' => $admin
+            ]);
+
+
+
+
+
+    return response()->json(['id' => $autre->id], 202);
+
+} catch (\Throwable $th) {
+return response()->json(['message' => $th], 500);
+}
+
+
+}
+
+
+/*{dd($request);
     $request->validate([
         'titre' => 'required',
         'description' => 'required',
@@ -213,10 +308,6 @@ public function autre_store(Request $request){
         'admin_id'=>$admin
     ]);
 
-
-    return redirect()->back();
-
-}
+}*/
 
 }
-
