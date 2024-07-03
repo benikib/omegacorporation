@@ -23,7 +23,8 @@
         <link rel="icon" href="{{ Storage::url('images/Omego_logo.png')}}" type="image/png">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-        <link rel="stylesheet" type="text/css" href="{{ url('public/css/style.min.css')}}" />
+
+        <link rel="stylesheet" type="text/css" href="{{ url('css/style.min.css')}}" />
 
 
         <!-- Styles -->
